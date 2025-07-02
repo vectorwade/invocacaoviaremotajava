@@ -6,18 +6,12 @@ import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Implementação da interface remota Calculadora
- * Esta classe contém a lógica das operações matemáticas executadas no servidor
- */
+
 public class CalculadoraImpl extends UnicastRemoteObject implements Calculadora {
     
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
-    /**
-     * Construtor da implementação da calculadora
-     * @throws RemoteException em caso de erro na inicialização do objeto remoto
-     */
+    
     public CalculadoraImpl() throws RemoteException {
         super();
         System.out.println("[" + LocalDateTime.now().format(formatter) + "] CalculadoraImpl inicializada");
