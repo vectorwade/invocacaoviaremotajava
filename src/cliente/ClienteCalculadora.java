@@ -7,10 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-/**
- * Cliente RMI para a calculadora distribuída
- * Permite ao usuário realizar operações matemáticas remotamente
- */
+
 public class ClienteCalculadora {
     
     private static final String NOME_SERVICO = "CalculadoraService";
@@ -21,22 +18,21 @@ public class ClienteCalculadora {
         Scanner scanner = new Scanner(System.in);
         
         try {
-            // Solicitar o endereço IP do servidor
             System.out.print("Digite o IP do servidor (ou 'localhost' para local): ");
             String ipServidor = scanner.nextLine().trim();
             if (ipServidor.isEmpty()) {
                 ipServidor = "localhost";
             }
             
-            // Conectar ao registro RMI
+          
             System.out.println("[" + LocalDateTime.now().format(formatter) + "] Conectando ao servidor RMI em " + ipServidor + ":" + PORTA_RMI);
             Registry registry = LocateRegistry.getRegistry(ipServidor, PORTA_RMI);
             
-            // Obter a referência do objeto remoto
+            
             Calculadora calculadora = (Calculadora) registry.lookup(NOME_SERVICO);
             System.out.println("[" + LocalDateTime.now().format(formatter) + "] Conectado com sucesso ao serviço " + NOME_SERVICO);
             
-            // Menu principal
+            
             exibirMenu();
             
             while (true) {
@@ -53,7 +49,7 @@ public class ClienteCalculadora {
                     continue;
                 }
                 
-                // Processar operação matemática
+             
                 if (isOperacaoValida(operacao)) {
                     processarOperacao(calculadora, operacao, scanner);
                 } else {
@@ -69,9 +65,7 @@ public class ClienteCalculadora {
         }
     }
     
-    /**
-     * Exibe o menu de opções para o usuário
-     */
+    
     private static void exibirMenu() {
         System.out.println("\n" + "=".repeat(50));
         System.out.println("     CALCULADORA DISTRIBUÍDA RMI");
@@ -86,27 +80,23 @@ public class ClienteCalculadora {
         System.out.println("=".repeat(50));
     }
     
-    /**
-     * Verifica se a operação digitada é válida
-     */
+   
     private static boolean isOperacaoValida(String operacao) {
         return operacao.equals("soma") || operacao.equals("subtracao") || 
                operacao.equals("multiplicacao") || operacao.equals("divisao");
     }
     
-    /**
-     * Processa uma operação matemática
-     */
+    
     private static void processarOperacao(Calculadora calculadora, String operacao, Scanner scanner) {
         try {
-            // Solicitar os operandos
+           
             System.out.print("Digite o primeiro número: ");
             double a = Double.parseDouble(scanner.nextLine());
             
             System.out.print("Digite o segundo número: ");
             double b = Double.parseDouble(scanner.nextLine());
             
-            // Executar a operação remota
+            
             double resultado = 0;
             String simbolo = "";
             
@@ -129,7 +119,7 @@ public class ClienteCalculadora {
                     break;
             }
             
-            // Exibir o resultado
+          
             System.out.println("\n" + "-".repeat(30));
             System.out.println("Resultado: " + a + " " + simbolo + " " + b + " = " + resultado);
             System.out.println("-".repeat(30));
